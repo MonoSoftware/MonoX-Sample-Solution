@@ -1,5 +1,5 @@
 ﻿using MonoSoftware.MonoX.Caching;
-using MonoSoftware.MonoX.Repositories;
+using MonoSoftware.MonoX.Samples.Repositories;
 using MonoSoftware.MonoX.Resources;
 using MonoSoftware.MonoX.Utilities;
 using System;
@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
+using NVelocity;
 
 namespace MonoSoftware.MonoX.ModuleGallery.SocialNetworking
 {
@@ -131,10 +132,10 @@ namespace MonoSoftware.MonoX.ModuleGallery.SocialNetworking
         public override void BindData()
         {
             //Optimize the DB access by using the MonoX cache mechanism (Note: To gain from this kind of optimization you need to set the CacheDuration for this web part)
-            MonoXCacheManager cacheManager = MonoXCacheManager.GetInstance(CacheRootKey, this.CacheDuration);
+            MonoXCacheManager cacheManager = MonoXCacheManager.GetInstance(CacheKeys.Groups.PopularGroupsList, this.CacheDuration);
             PopularGroupRepository repository = PopularGroupRepository.GetInstance();
             int recordCount = cacheManager.Get<int>(PopularGroupRepository.CacheParamMonoXPopularGroupsList, "recordCount");
-            List<SnGroupDTO> groups = cacheManager.Get<List<SnGroupDTO>>(PopularGroupRepository.CacheParamMonoXPopularGroupsList, pager.CurrentPageIndex + 1, pager.PageSize);
+            List<MonoSoftware.MonoX.Repositories.SnGroupDTO> groups = cacheManager.Get<List<MonoSoftware.MonoX.Repositories.SnGroupDTO>>(PopularGroupRepository.CacheParamMonoXPopularGroupsList, pager.CurrentPageIndex + 1, pager.PageSize);
             if (groups == null)
             {
                 //Fetch the popular groups
@@ -152,10 +153,11 @@ namespace MonoSoftware.MonoX.ModuleGallery.SocialNetworking
         {
             if (e.Item.ItemType == ListViewItemType.DataItem)
             {
-                SnGroupDTO group = ((ListViewDataItem)e.Item).DataItem as SnGroupDTO;
+                MonoSoftware.MonoX.Repositories.SnGroupDTO group = ((ListViewDataItem)e.Item).DataItem as MonoSoftware.MonoX.Repositories.SnGroupDTO;
                 //Parse template tags will extract all the needed information from SnGroupDTO and fill the tags collection with tags that are built-in 
                 //Note: To add any custom tags to web part template you need to override the ParseTemplateTags and add custom tags, then you need to place them in web part template file
-                Hashtable tags = ParseTemplateTags(group);
+                VelocityContext velocityContext = new VelocityContext();
+                Hashtable tags = ParseTemplateTags(group, velocityContext);
                 //Render templated item to the place holder
                 //Note: This built-in method will parse the provided html template and replace the tags with the values stored in the tags collection
                 RenderTemplatedPart(e.Item, CurrentTemplateHtml, tags);

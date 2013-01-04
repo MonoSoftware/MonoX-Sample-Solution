@@ -9,12 +9,12 @@ using System.Collections.Generic;
 using System.Linq;
 using MonoSoftware.MonoX.DAL.RelationClasses;
 
-namespace MonoSoftware.MonoX.Repositories
+namespace MonoSoftware.MonoX.Samples.Repositories
 {
     /// <summary>
     /// Repository for social network popular group-related functionality
     /// </summary>
-    public class PopularGroupRepository : GroupRepository 
+    public class PopularGroupRepository : MonoSoftware.MonoX.Repositories.GroupRepository 
     {
 
         #region Fields
@@ -52,14 +52,14 @@ namespace MonoSoftware.MonoX.Repositories
         /// <param name="pageSize">Page size.</param>
         /// <param name="recordCount">Record count.</param>
         /// <returns>List of groups.</returns>
-        public List<SnGroupDTO> GetPopularGroups(string category, Guid categoryId, int pageNumber, int pageSize, out int recordCount)
+        public List<MonoSoftware.MonoX.Repositories.SnGroupDTO> GetPopularGroups(string category, Guid categoryId, int pageNumber, int pageSize, out int recordCount)
         {
             RelationPredicateBucket filter = new RelationPredicateBucket();
             
             //introduced to filter out groups by languages and applications            
             filter.Relations.Add(SnGroupEntity.Relations.SnGroupCategoryEntityUsingGroupCategoryId, JoinHint.Left);
             //Note: MonoX supports the multi application environment so general filter for all DB access calls should contain the application id filter
-            filter.PredicateExpression.Add(SnGroupCategoryFields.ApplicationId == MembershipRepository.GetInstance().GetApplicationId());
+            filter.PredicateExpression.Add(SnGroupCategoryFields.ApplicationId == MonoSoftware.MonoX.Repositories.MembershipRepository.GetInstance().GetApplicationId());
             //Note: MonoX in supports the multi language environment so general filter for all DB access calls should contain the language id filter
             filter.PredicateExpression.Add(SnGroupCategoryFields.LanguageId == LocalizationUtility.GetCurrentLanguageId());
 
@@ -104,7 +104,7 @@ namespace MonoSoftware.MonoX.Repositories
             //Fetch the group total count used by paging
             recordCount = GetDbCount(groups, filter);
             //Transfer group entities to the DTO
-            List<SnGroupDTO> toReturn = groups.Select(group => new SnGroupDTO(group)).ToList<SnGroupDTO>();
+            List<MonoSoftware.MonoX.Repositories.SnGroupDTO> toReturn = groups.Select(group => new MonoSoftware.MonoX.Repositories.SnGroupDTO(group)).ToList<MonoSoftware.MonoX.Repositories.SnGroupDTO>();
             return toReturn;
         }
         

@@ -119,6 +119,8 @@
     <Content Include="App_Browsers\Form.browser" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Templates\Default\SocialNetworkingTemplates\PopularGroupsList.htm" />
+    <Content Include="ProjectName\WebParts\PopularGroupsList.ascx" />
     <Content Include="ProjectName\WebParts\WebPartSample.aspx" />
     <Content Include="ProjectName\WebParts\HelloWorld.ascx" />
     <Content Include="web.config" />
@@ -128,54 +130,49 @@
     <Content Include="MonoX\MasterPages\MonoX.master" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Code\BaseClasses\BasePage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Code\BaseClasses\BaseAutoRegisterPart.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Code\BaseClasses\BaseUserControl.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    <Compile Include="Code\BaseClasses\BasePage.cs" />
+    <Compile Include="Code\BaseClasses\BaseAutoRegisterPart.cs" />
+    <Compile Include="Code\BaseClasses\BaseUserControl.cs" />
     <Compile Include="Code\Classes\DataManager.cs" />
+    <Compile Include="Code\Layers\Repositories\PopularGroupRepository.cs" />
     <Compile Include="ProjectName\ProfileSamples\ASPNETProfileSample\ASPNETProfileSample.aspx.cs">
       <DependentUpon>ASPNETProfileSample.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ProjectName\ProfileSamples\ASPNETProfileSample\ASPNETProfileSample.aspx.designer.cs">
       <DependentUpon>ASPNETProfileSample.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProjectName\ProfileSamples\MonoXProfileTemplates\SideContentTemplate.ascx.cs">
       <DependentUpon>SideContentTemplate.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ProjectName\ProfileSamples\MonoXProfileTemplates\SideContentTemplate.ascx.designer.cs">
       <DependentUpon>SideContentTemplate.ascx</DependentUpon>
     </Compile>
     <Compile Include="ProjectName\ProfileSamples\MonoXProfileTemplates\MainContentTemplate.ascx.cs">
       <DependentUpon>MainContentTemplate.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ProjectName\ProfileSamples\MonoXProfileTemplates\MainContentTemplate.ascx.designer.cs">
       <DependentUpon>MainContentTemplate.ascx</DependentUpon>
     </Compile>
     <Compile Include="ProjectName\ProfileSamples\MonoXProfileTemplates\MonoXProfileSample.aspx.cs">
       <DependentUpon>MonoXProfileSample.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ProjectName\ProfileSamples\MonoXProfileTemplates\MonoXProfileSample.aspx.designer.cs">
       <DependentUpon>MonoXProfileSample.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ProjectName\WebParts\PopularGroupsList.ascx.cs">
+      <DependentUpon>PopularGroupsList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectName\WebParts\PopularGroupsList.ascx.designer.cs">
+      <DependentUpon>PopularGroupsList.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ProjectName\WebParts\WebPartSample.aspx.cs">
       <DependentUpon>WebPartSample.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ProjectName\WebParts\WebPartSample.aspx.designer.cs">
       <DependentUpon>WebPartSample.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProjectName\WebParts\HelloWorld.ascx.cs">
       <DependentUpon>HelloWorld.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ProjectName\WebParts\HelloWorld.ascx.designer.cs">
       <DependentUpon>HelloWorld.ascx</DependentUpon>
@@ -196,7 +193,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Code\Layers\BusinessLayer\" />
-    <Folder Include="Code\Layers\Repositories\" />
     <Folder Include="Code\LocalResources\" />
     <Folder Include="Properties\" />
   </ItemGroup>
